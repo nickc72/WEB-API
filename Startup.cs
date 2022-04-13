@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using WEB_API.Services.CharacterService;
 
 namespace WEB_API
 {
@@ -27,6 +28,7 @@ namespace WEB_API
         {
             services.AddControllers();
             services.AddSwaggerGen();
+            services.AddScoped<ICharacterService, CharacterService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
