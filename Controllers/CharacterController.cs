@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using WEB_API.Dtos.Character;
 using WEB_API.Models;
 using WEB_API.Services.CharacterService;
 
@@ -29,14 +30,14 @@ namespace WEB_API.Controllers
     //[HttpGet]
     //[Route("GetAll")]
     [HttpGet("GetAll")]
-    public async Task<ActionResult<ServiceResponse<List<Character>>>> Get()
+    public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Get()
     {
         //return Ok(characters);
         return Ok( await _characterService.GetAllCharacter());
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<ServiceResponse<Character>>> GetSingle(int id)
+    public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle(int id)
     {
         //return Ok(characters.FirstOrDefault(c => c.Id == id));
         return Ok(await _characterService.GetCharacterById(id));
@@ -44,7 +45,7 @@ namespace WEB_API.Controllers
 
     [HttpPost]
 
-    public async Task<ActionResult<ServiceResponse<List<Character>>>> AddCharacter(Character newCharacter)
+    public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> AddCharacter(AddCharacterDto newCharacter)
     {
         //characters.Add(newCharacter);
         //return Ok(characters);
