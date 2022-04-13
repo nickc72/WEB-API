@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using WEB_API.Dtos.Character;
 using WEB_API.Models;
 using AutoMapper;
+using System;
 
 namespace WEB_API.Services.CharacterService
 {
@@ -46,6 +47,34 @@ namespace WEB_API.Services.CharacterService
             ServiceResponse.Data = _mapper.Map<GetCharacterDto>(characters.FirstOrDefault(c => c.Id == id));
             return ServiceResponse;
 
+        }
+
+       
+        public async Task<ServiceResponse<GetCharacterDto>> UpdateCharacter(UpdateCharacterDto updatedCharacter)
+        {
+            
+            var serviceResponse = new ServiceResponse<GetCharacterDto>();
+            try
+            {   
+                Character character = characters.FirstOrDefault(c => c.Id==updatedCharacter.Id);
+
+                character.Name= updatedCharacter.Name;
+                character.Defense=updatedCharacter.Defense;
+                character.Intelligence=updatedCharacter.Intelligence;
+                character.HitPoints=updatedCharacter.HitPoints;
+                character.Class=updatedCharacter.Class;
+                character.Strength=updatedCharacter.Strength;
+
+                serviceResponse.Data=_mapper.Map<GetCharacterDto>(character);
+
+                
+            }
+            catch(Exception ex)
+            {
+                serviceResponse.Success=false;
+                serviceResponse.Message=ex.Message;
+            } 
+            return serviceResponse;
         }
     }
 }
