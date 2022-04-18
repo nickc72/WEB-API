@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using WEB_API.Services.CharacterService;
+using Microsoft.EntityFrameworkCore;
+using WEB_API.Data;
 
 namespace WEB_API
 {
@@ -27,6 +29,7 @@ namespace WEB_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<DataContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
             services.AddSwaggerGen();
             services.AddScoped<ICharacterService, CharacterService>();
